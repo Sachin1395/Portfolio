@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Instrument Serif', serif;
+}
+
+.main {
+  width: 100%;
+  padding-top: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 5%;
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  width: 60%;
+}
+
+.right {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.quote {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  height: 70%;
+  align-content: center;
+  justify-items: center;
+  color: snow;
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.hello {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  background: linear-gradient(60deg, #F7374F, #e437f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.sachin {
+  font-size: clamp(5rem, 12vw, 12.5rem);
+  color: snow;
+}
+
+.c1 {
+  position: absolute;
+  top: 8%;
+  left: 12%;
+  z-index: -2;
+}
+
+.c2 {
+  position: absolute;
+  top: 0%;
+  left: 32%;
+  z-index: -2;
+}
+
+/* --- Connect and Hire Buttons with Glass Glow Effect --- */
+.connect, .hire {
+  padding: 2%;
+  width: 25%;
+  height: 50px;
+  background: #1E1E1E;
+  border: solid #88304E 2px;
+  color: snow;
+  border-radius: 12px;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-p{
+  text-align: center;
+    text-justify: inter-word;
+    white-space: pre-line;
+}                    
+
+.connect::before, .hire::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: inherit;
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: -1;
+}
+
+.connect:hover::before, .hire:hover::before {
+  opacity: 0.4;
+}
+
+.connect:hover, .hire:hover {
+  box-shadow: 0 0 15px rgba(231, 76, 255, 0.6), 0 0 50px rgba(247, 55, 79, 0.5);
+  transform: scale(1.04);
+}
+
+/* --- Responsive Layout Adjustments --- */
+@media only screen and (max-width: 992px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .left {
+    width: 100%;
+  }
+
+  .right {
+    width: 100%;
+    justify-content: center;
+    padding: 5%;
+  }
+
+  .connect, .hire {
+    width: 45%;
+    margin: 10px auto;
+  }
+
+  .sachin {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .quote {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
+
+  .hello {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .sachin {
+    font-size: clamp(4rem, 16vw, 9rem);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .connect, .hire {
+    width: 100%;
+    font-size: clamp(0.8rem, 4vw, 1rem);
+  }
+
+  .nav-buttons {
+    gap: 5%;
+  }
+
+}

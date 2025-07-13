@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Bayon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+.about-main {
+  padding: 5% 8%;
+  font-family: 'Bayon', sans-serif;
+  background-color: #0d0d0d;
+  color: snow;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  background: linear-gradient(60deg, #F7374F, #e437f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  width: 250px;
+}
+
+.content {
+  display: block;
+  overflow: hidden;
+  padding-top: 2%;
+}
+
+.image {
+  float: left;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  width: 300px;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.profile-image:hover{
+  border: solid 2px #F7374F;
+}
+
+.about-content {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  text-align: left;
+}
+
+.build-worlds {
+  text-align: left;
+}
+
+/* Achievements Section */
+.achievements-wrapper {
+  padding: 4rem 2rem;
+  background-color: #0d0d0d;
+}
+
+.achievements-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: 'Bayon', sans-serif;
+  background: linear-gradient(60deg, #f7374f, #e437f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.achievements-scroll {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+  justify-items: center;
+}
+
+.achievements-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.achievement {
+  flex: 0 0 280px;
+  scroll-snap-align: center;
+  background-color: #1a1a1a;
+  border: 2px solid #f7374f;
+  border-radius: 20px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
+  cursor: pointer;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.achievement:hover {
+  transform: translateY(-8px) scale(1.02);
+  background-color: #262626;
+  border-radius: 0px;
+  box-shadow: 0 12px 24px rgba(255, 215, 0, 0.3);
+  border-image: linear-gradient(45deg, #f7374f, #e437f7) 1;
+}
+
+.achievement h2 {
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-family: 'Bayon', sans-serif;
+}
+
+.achievement p {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.6;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Medium Devices (768px and below) */
+@media screen and (max-width: 768px) {
+  .image {
+    float: none;
+    display: block;
+    margin: 0 auto 2rem;
+    text-align: center;
+    width: 60%;
+  }
+
+  .about-content {
+    text-align: center;
+  }
+
+  .build-worlds {
+    text-align: left;
+    padding: 0 1rem;
+  }
+}
+
+/* Stack achievements vertically on mobile (<600px) */
+@media screen and (max-width: 600px) {
+
+  .achievements-scroll {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow-x: hidden;
+    scroll-snap-type: none;
+  }
+
+  .achievement {
+    flex: 1 1 auto;
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 1.5rem;
+  }
+
+  .image {
+    width: 90%;
+  }
+
+  .about-content {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .achievement h2 {
+    font-size: 1.1rem;
+  }
+
+  .achievement p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Optional: Wider cards on large screens */
+@media screen and (min-width: 1600px) {
+  .achievement {
+    flex: 0 0 320px;
+  }
+}

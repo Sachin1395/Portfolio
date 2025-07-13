@@ -1,0 +1,30 @@
+.blinking-cursor {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+
+/* Responsive Base Text */
+.exp-base {
+  font-family: monospace;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  color: snow;
+  margin: 0;
+}
+
+/* Responsive Typewriter Text */
+.exp-type {
+  font-family: monospace;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  background: linear-gradient(60deg, #F7374F, #e437f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}

@@ -1,0 +1,170 @@
+.navbar {
+  margin: 0;
+  padding-top: 2%;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Instrument Serif', serif;
+  overflow: visible; /* Allow dropdown to overflow */
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-left: 10%;
+  padding-right: 10%;
+  min-height: 85px; /* Instead of fixed height */
+  position: relative;
+  z-index: 10;
+}
+
+/* Navbar links */
+.links {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5%;
+  font-size: clamp(14px, 2vw, 24px);
+  z-index: 1100; /* Dropdown must be on top of everything */
+}
+
+/* Resume button container */
+.resume {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+}
+
+/* Download button */
+.download {
+  padding: 0.4em 1em;
+  background: #1E1E1E;
+  border: solid #88304E 2px;
+
+  color: snow;
+  border-radius: 12px;
+  font-size: clamp(14px, 2vw, 20px);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  white-space: nowrap;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional inner glow for hover */
+.download::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: inherit;
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: -1;
+}
+
+.download:hover::before {
+  opacity: 0.4;
+}
+
+.download:hover {
+  box-shadow: 0 0 15px #e437f7, 0 0 50px #F7374F;
+  transform: scale(1.04);
+}
+
+
+
+
+/* Link styling */
+a {
+  color: #F7374F;
+  text-decoration: none;
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  background: linear-gradient(45deg, #F7374F, #e437f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hamburger Button */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: #F7374F;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 10%;
+  z-index: 1001;
+} 
+
+/* ---------- Responsive Layouts ---------- */
+
+@media (max-width: 992px) {
+  .hamburger {
+    display: block;
+
+  }
+
+  .links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 10%;
+    background-color: #1E1E1E;
+    width: 80%;
+    gap: 20px;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 12px;
+  }
+  
+
+  .links.show {
+    display: flex;
+    border: solid #F7374F 2px;
+  }
+
+  .resume {
+    position: absolute;
+    top: 20px;
+    right: 10%;
+    justify-content: flex-end;
+    z-index: 1001;
+  }
+}
+
+@media (max-width: 600px) {
+  .links {
+    width: 90%;
+    left: 5%;
+  }
+
+  .hamburger {
+    left: 5%;
+  }
+
+  .resume {
+    right: 5%;
+  }
+}
