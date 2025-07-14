@@ -155,7 +155,7 @@
 
   .achievement {
     flex: 1 1 auto;
-    width: 90%;
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
   }

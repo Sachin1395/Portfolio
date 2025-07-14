@@ -20,7 +20,7 @@ function Navbar() {
         <a href="#contact" onClick={closeMenu}>Contact</a>
       </div>
       <div className="resume">
-        <a href="./assets/resume.pdf" download className="download">Download Resume</a>
+        <a href="./assets/General.pdf" download className="download">Download Resume</a>
       </div>
     </div>
   );
