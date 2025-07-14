@@ -4,6 +4,7 @@ import "@fontsource/instrument-serif";
 import ellipse from './assets/Ellipse.png';
 import ellipse2 from './assets/Ellipse2.png';
 
+
 function Home() {
 
   const handleConnectClick = () => {
@@ -20,8 +21,11 @@ function Home() {
   return (
     <div id='home'>
       <div className='main'>
-        <div className='c1'><img src={ellipse} alt="Decorative Shape" /></div>
-        <div className='c2'><img src={ellipse2} alt="Decorative Shape" /></div>
+        {/* <div className='c1'><img src={ellipse} alt="Decorative Shape" /></div>
+        <div className='c2'><img src={ellipse2} alt="Decorative Shape" /></div> */}
+        <div className='circle1'></div>
+        <div className='circle2'></div>
+      
 
         <div className='left'>
           <p className='hello'>Hello Everyone</p>

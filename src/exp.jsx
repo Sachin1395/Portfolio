@@ -6,7 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Updated icon field with image file names
 const timelineEvents = [
   {
     icon: 'azure.png',
@@ -42,27 +41,30 @@ function Experience() {
   const timelineRef = useRef([]);
 
   useEffect(() => {
-    timelineRef.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 100 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    });
+    // Only animate if screen width is above 786px
+    if (window.innerWidth > 786) {
+      timelineRef.current.forEach((el, index) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 100 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      });
+    }
   }, []);
 
   return (
-    <div id='experience' className="main-exp">
+    <div id="experience" className="main-exp">
       <p className="title-p">Experience</p>
       <Exp />
 

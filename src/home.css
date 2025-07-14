@@ -6,7 +6,7 @@
 }
 
 .main {
-  width: 100%;
+  width: 100% ;
   padding-top: 5%;
   padding-left: 10%;
   padding-right: 10%;
@@ -54,19 +54,68 @@
   color: snow;
 }
 
+.circle1 {
+  position: absolute;
+  width: 30%;
+  height: 50vh;
+  top: 38%;
+  left: 25%;
+  z-index: -2;
+}
+
+.circle1::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f7374ec7;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.8;
+}
+
+.circle2 {
+  position: absolute;
+  width: 30%;
+  height: 50vh;
+  top: 30%;
+  left: 45%;
+  z-index: -2;
+}
+
+.circle2::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #88304E;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.8;
+}
+
 .c1 {
   position: absolute;
   top: 8%;
   left: 12%;
   z-index: -2;
+     max-width: 100%;
+  height: auto;
+  display: block;
 }
+
 
 .c2 {
   position: absolute;
   top: 0%;
   left: 32%;
   z-index: -2;
+   max-width: 100%;
+  height: auto;
+  display: block;
 }
+
+
 
 /* --- Connect and Hire Buttons with Glass Glow Effect --- */
 .connect, .hire {
@@ -142,6 +191,8 @@
     justify-content: center;
     width: 100%;
   }
+
+  
 }
 
 @media only screen and (max-width: 600px) {
@@ -170,3 +221,5 @@
   }
 
 }
+
+

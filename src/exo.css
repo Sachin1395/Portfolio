@@ -77,7 +77,7 @@ body {
     color: #1E1E1E;
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     font-weight: 600;
-    background: linear-gradient(60deg, #F7374F, #e437f7);
+    background: linear-gradient(60deg, #f40752, #f9ab8f);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,7 +94,7 @@ body {
     padding: 40px;
     align-self: center;
     margin: 0 20px;
-    background: linear-gradient(60deg, #F7374F, #e437f7);
+    background: linear-gradient(60deg,#f40752, #f9ab8f);
     border-radius: 100%;
     width: 40px;
     height: 40px;
@@ -119,12 +119,12 @@ body {
 
 .timeline__event--type2 .timeline__event__date {
     color: #1E1E1E;
-    background: linear-gradient(120deg, #956afa, #e437f7);
+    background: linear-gradient(120deg, #696eff, #f8acff);
 }
 
 .timeline__event--type2 .timeline__event__icon {
-    background: linear-gradient(120deg, #956afa, #e437f7);
-    color: #956afa;
+    background: linear-gradient(120deg, #696eff, #f8acff);
+    color: #696eff;
 }
 
 .timeline__event--type2 .timeline__event__title {
@@ -133,16 +133,16 @@ body {
 
 .timeline__event--type3 .timeline__event__date {
     color: #1E1E1E;
-    background: linear-gradient(60deg, #15efff, #bf3199);
+    background: linear-gradient(60deg, #9bf8f4, #6f7bf7);
 }
 
 .timeline__event--type3 .timeline__event__icon {
-    background: linear-gradient(60deg, #15efff, #bf3199);
+    background: linear-gradient(60deg, #9bf8f4, #6f7bf7);
     color: #bf3199;
 }
 
 .timeline__event--type3 .timeline__event__title {
-    color: #bf3199;
+    color: #6f7bf7;
 }
 
 .timeline-icon-img {
@@ -188,4 +188,45 @@ body {
         border-radius: 6px 6px 0 0;
         margin: 0;
     }
+}
+
+@media (max-width: 786px) {
+  .timeline__event,
+  .timeline__event__content,
+  .timeline__event__date,
+  .timeline__event__icon {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .timeline__event,
+  .timeline__event__content,
+  .timeline__event__date,
+  .timeline__event__icon {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .timeline__event__icon {
+    display: none;
+  }
+
+  .timeline__event {
+    flex-direction: column !important;
+    align-self: center !important;
+    width: 80vw !important;
+  }
+
+  .timeline__event__date {
+    border-radius: 0 !important;
+    padding: 20px !important;
+  }
+
+  .timeline__event__content {
+    width: 100% !important;
+  }
 }
