@@ -15,7 +15,7 @@ function About() {
           <div className="about-content">
             <p>
               👋 Hey there, I’m Sachin!<br /><br />
-              I’m a curious human running on Python, some oranges, and a dangerously long list of side quests,
+              I’m a curious human running on Python, Java, some oranges, and a dangerously long list of side quests,
               some in code, some in fields or some in video games.<br /><br />
               By day, I’m a CSE student at VIT Chennai, wrangling AI models, dodging semicolons, and negotiating
               data privacy terms with my Smart Grid (she’s moody, but secure thanks to AES-RSA ).<br /><br />
