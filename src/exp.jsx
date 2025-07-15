@@ -67,7 +67,7 @@ function Experience() {
     <div id="experience" className="main-exp">
       <p className="title-p">Experience</p>
       <Exp />
-
+       <div className="triangle"></div>
       <div className="timeline">
         {timelineEvents.map((event, index) => (
           <div

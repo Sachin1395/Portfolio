@@ -4,6 +4,8 @@ import myImage from './assets/Picsart_25-07-02_16-35-57-398.jpg';
 function About() {
   return (
     <div id="about" className="about-main">
+      <div className="gradient-bg"></div>
+
       <div className="hero">
         <p className="title">About</p>
         <div className="content">

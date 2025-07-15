@@ -31,7 +31,7 @@ function ProjectCard({ titleClass, nameClass, bulletClass, name, desc, github, l
 function Project() {
     return (
         <div id="projects" className="projects">
-  
+           
             <p className="title-p">Projects</p>
 
             <div className="row-1">

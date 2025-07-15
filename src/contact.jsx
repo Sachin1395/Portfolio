@@ -40,6 +40,7 @@ function Contact() {
 
   return (
     <div id='contact' className="contact-main">
+      <div className="gradient-bg-1"></div>
       <p className="contact-title">Contact Me</p>
       <p className="contact-sub">Have a question, project, or opportunity in mind? Let's connect!</p>
 
