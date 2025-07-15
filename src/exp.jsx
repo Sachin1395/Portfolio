@@ -15,18 +15,18 @@ const timelineEvents = [
     type: 'type1',
   },
   {
-    icon: 'aiml.png',
-    date: 'September 2024',
-    title: 'AI/ML Trainee at SpectoV',
-    desc: 'Developed an AI-driven system for real-time object detection in videos, enhancing accuracy and performance. Built a Flask-based web app enabling video uploads, detection processing, and result downloads. Automated LinkedIn recruitment workflows using Selenium and resume analysis tools. Additionally, streamlined new joinee enrollment by automating data updates and sending personalized onboarding emails.',
-    type: 'type2',
-  },
-  {
     icon: 'research.png',
     date: 'Ongoing',
     title: 'Research and Development Intern VIT Chennai',
     desc: 'Led the development of a secure data-sharing system for smart city services, enhancing privacy and reducing integration time by 30% through a Flask-based web application and REST APIs. Improved inter-service communication efficiency, cutting latency by 25%. Additionally, contributed to the deployment of machine learning models in tidal energy systems to optimize energy output predictions and improve operational efficiency.',
     type: 'type3',
+  },
+  {
+    icon: 'aiml.png',
+    date: 'September 2024',
+    title: 'AI/ML Trainee at SpectoV',
+    desc: 'Developed an AI-driven system for real-time object detection in videos, enhancing accuracy and performance. Built a Flask-based web app enabling video uploads, detection processing, and result downloads. Automated LinkedIn recruitment workflows using Selenium and resume analysis tools. Additionally, streamlined new joinee enrollment by automating data updates and sending personalized onboarding emails.',
+    type: 'type2',
   },
   {
     icon: 'iot.png',
@@ -36,6 +36,7 @@ const timelineEvents = [
     type: 'type1',
   },
 ];
+
 
 function Experience() {
   const timelineRef = useRef([]);
