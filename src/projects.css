@@ -1,16 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Bayon&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 /* Global Font and Color */
 .projects {
-  font-family: 'Bayon', sans-serif;
+
   color: snow;
   padding: 10%;
   position: relative;
 }
 
+
+
+
 /* Gradient Title */
 .title-p {
   font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: 1.2px;
   background: linear-gradient(60deg, #F7374F, #e437f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -26,6 +29,7 @@
   justify-content: space-between;
   padding-top: 2%;
   gap: 3%;
+  
 }
 
 .project-1,
@@ -47,6 +51,7 @@
   background-color: #F7374F;
   border: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 20px rgba(243, 41, 64, 0.873);
+  
 }
 
 .project-2 {
@@ -81,29 +86,35 @@
   box-shadow: 0 0 20px rgb(229, 60, 116);
 }
 
+
+
 /* Titles and Names */
 .project-lname-1,
 .project-lname-2 {
   padding: 2%;
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-size: clamp(0.8rem, 1.75vw, 1.25rem);
+  font-family: "Inter", sans-serif;
 }
 
 .project-lname-3,
 .project-lname-4,
 .project-lname-5 {
   padding: 2%;
-  font-size: clamp(1.1rem, 3vw, 1rem);
+  font-size: clamp(0.8rem, 1.75vw, 1rem);
+   font-family: "Inter", sans-serif;
 }
 
 .project-name-1,
 .project-name-2 {
-  font-size: clamp(1.25rem, 2vw, 2.625rem);
+  font-size: clamp(1rem, 2.2vw, 2.625rem);
+  font-family: "Inter", sans-serif;
 }
 
 .project-name-3,
 .project-name-4,
 .project-name-5 {
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  font-family: "Inter", sans-serif;
 }
 
 .title-1,

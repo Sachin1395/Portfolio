@@ -19,8 +19,8 @@ function ProjectCard({ titleClass, nameClass, bulletClass, name, desc, github, l
                 <a href={linkedin} target="_blank" rel="noreferrer"><FaLinkedin /></a>
                 <a href={deploy} target="_blank" rel="noreferrer"><FaExternalLinkAlt /></a>
             </div>
-            <p className={`project-lname-${titleClass.slice(-1)}`}>{desc}</p>
-            <div className={`title-${titleClass.slice(-1)}`}>
+            <p className={`project-lname-${titleClass.slice(-1)} project-desc`}>{desc}</p>
+            <div className={`title-${titleClass.slice(-1)} title-font`}>
                 <div className={`bullet-${titleClass.slice(-1)}`}></div>
                 <p className={nameClass}>{name}</p>
             </div>

@@ -4,6 +4,7 @@
   width: 100%;
   box-sizing: border-box;
   font-family: 'Instrument Serif', serif;
+  letter-spacing: 1.2px;
   overflow: visible; /* Allow dropdown to overflow */
   display: flex;
   justify-content: space-between;
