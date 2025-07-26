@@ -21,7 +21,7 @@ function About() {
               data privacy terms with my Smart Grid (she’s moody, but secure thanks to AES-RSA ).<br /><br />
               By night, I switch from debugging code to dribbling past defenders on the football field —
               both require precision, after all.
-            </p><br />
+            </p><br /><br /><br />
             <div className="build-worlds">
               <p>
                 I don’t just build apps — I build worlds:<br />

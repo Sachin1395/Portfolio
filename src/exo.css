@@ -138,8 +138,9 @@ body {
 }
 
 .timeline__event__description p {
-    font-size: clamp(0.9rem, 2.2vw, 1.2rem);
+    font-size: clamp(0.9rem, 2.2vw, 0.9rem);
     line-height: 1.5;
+    font-family: "Inter", sans-serif;
 }
 
 .timeline__event--type2 .timeline__event__date {
