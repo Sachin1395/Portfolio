@@ -34,16 +34,15 @@ export function DoorBand() {
         ))}
       </h2>
       <div aria-hidden="true" className="mt-10 flex overflow-hidden text-[clamp(15px,1.5vw,22px)] font-bold tracking-[0.02em] whitespace-nowrap">
-        <div className="anim-marquee flex shrink-0 gap-10 pr-10">
-          {Array.from({ length: 4 }, (_, i) => (
-            <span key={i}>{statement} —</span>
-          ))}
-        </div>
-        <div className="anim-marquee flex shrink-0 gap-10 pr-10">
-          {Array.from({ length: 4 }, (_, i) => (
-            <span key={i}>{statement} —</span>
-          ))}
-        </div>
+        {/* Two identical groups scroll side by side for a seamless loop; each holds the
+            phrases twice so it is wider than the widest screen. */}
+        {[0, 1].map((group) => (
+          <div key={group} className="anim-marquee flex shrink-0 gap-10 pr-10">
+            {[...door.ticker, ...door.ticker].map((phrase, i) => (
+              <span key={i}>— {phrase}</span>
+            ))}
+          </div>
+        ))}
       </div>
       {/* Scroll cue: the band holds for a beat, so say there is more below (Contact).
           Below lg it sits left of the fixed menu button. Decorative: the page scrolls on anyway. */}
