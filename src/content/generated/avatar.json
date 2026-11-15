@@ -1,0 +1,55 @@
+{
+  "src": "/images/avatar/avatar-c34ec1ad.webp",
+  "eyesSrc": "/images/avatar/eyes-4ed4e089.webp",
+  "hd": [
+    {
+      "height": 2800,
+      "avif": "/images/avatar/avatar-hd-2800-6434f073.avif",
+      "webp": "/images/avatar/avatar-hd-2800-0e5d3eb0.webp"
+    },
+    {
+      "height": 4000,
+      "avif": "/images/avatar/avatar-hd-4000-c3991180.avif",
+      "webp": "/images/avatar/avatar-hd-4000-7bd9ab2d.webp"
+    }
+  ],
+  "width": 685,
+  "height": 2000,
+  "eyes": {
+    "left": 30.917,
+    "top": 17.19,
+    "width": 38.55,
+    "height": 3.816
+  },
+  "wave": {
+    "src": "/images/avatar/wave-4dd5d85a.webp",
+    "width": 510,
+    "height": 1200
+  },
+  "closeUps": {
+    "about": {
+      "avif": "/images/avatar/close-about-b65603f3.avif",
+      "webp": "/images/avatar/close-about-4cec8886.webp",
+      "width": 1074,
+      "height": 720
+    },
+    "work": {
+      "avif": "/images/avatar/close-work-38d769a7.avif",
+      "webp": "/images/avatar/close-work-a89d9f0f.webp",
+      "width": 968,
+      "height": 649
+    },
+    "stack": {
+      "avif": "/images/avatar/close-stack-708c2982.avif",
+      "webp": "/images/avatar/close-stack-52a81ef5.webp",
+      "width": 829,
+      "height": 555
+    },
+    "experience": {
+      "avif": "/images/avatar/close-experience-a11abefe.avif",
+      "webp": "/images/avatar/close-experience-fd02def9.webp",
+      "width": 1074,
+      "height": 720
+    }
+  }
+}

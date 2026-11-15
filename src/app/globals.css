@@ -1,0 +1,389 @@
+@import "tailwindcss";
+
+/* Dark mode is driven by next-themes adding the `dark` class to <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+/* The scroll story's motion layout: StoryController adds `story-motion` to <html>. */
+@custom-variant story (&:where(.story-motion *));
+/* Desktop with height to spare: dense cards (Stack) can use their roomier sizes. */
+@custom-variant roomy (@media (min-width: 1024px) and (min-height: 800px));
+/* Tablet/desktop windows under 720px tall (e.g. a laptop at 150% scaling): tighten vertical spacing. */
+@custom-variant short (@media (min-width: 768px) and (max-height: 720px));
+/* Tablet held upright (768–1023 wide, taller than wide): the hero goes two-column. */
+@custom-variant tall (@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait));
+
+/* ---------------------------------------------------------------------------
+   Design tokens — theme 3 (grey + red). Change colours here only.
+   --------------------------------------------------------------------------- */
+:root {
+  --bg: #ededeb;
+  --card: #ffffff;
+  --ink: #111111;
+  --muted: #5c5c5c;
+  --num: #d9d9d6;
+  --line: #cfcfcb;
+  --ring: #b8b8b4;
+  --ring-strong: #9a9a96;
+  --border: #dadad6;
+  --red: #e10600;
+  --on-red: #ffffff;
+  --link: #c00500;
+  --glow: rgba(255, 255, 255, 0.85);
+  /* Recruiter view notebook: the desk around the page, the paper and its ruled lines. */
+  --desk: #7d7d7a;
+  --paper: #f7f7f4;
+  --paper-line: #e2e2dd;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0f0f10;
+  --card: #19191b;
+  --ink: #ededeb;
+  --muted: #a1a1a1;
+  --num: #1e1e21;
+  --line: #2a2a2d;
+  --ring: #3a3a3e;
+  --ring-strong: #55555a;
+  --border: #2a2a2d;
+  --red: #ff3b30;
+  --on-red: #111111;
+  --link: #ff3b30;
+  --glow: rgba(255, 255, 255, 0.1);
+  --desk: #070708;
+  --paper: #161618;
+  --paper-line: #222225;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-num: var(--num);
+  --color-line: var(--line);
+  --color-ring: var(--ring);
+  --color-ring-strong: var(--ring-strong);
+  --color-border: var(--border);
+  --color-red: var(--red);
+  --color-desk: var(--desk);
+  --color-paper: var(--paper);
+  --color-paper-line: var(--paper-line);
+  --color-on-red: var(--on-red);
+  --color-link: var(--link);
+
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Lenis smooth scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   Ambient motion. Every animation here stops for reduced-motion users.
+   --------------------------------------------------------------------------- */
+/* The hero shapes "breathe": small turns, gentle scale, slow loops. */
+@keyframes shape-a {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(6deg) scale(1.06); }
+}
+@keyframes shape-b {
+  0%, 100% { transform: rotate(-6deg) scale(1); }
+  50% { transform: rotate(6deg) scale(0.95); }
+}
+@keyframes shape-c {
+  0%, 100% { transform: rotate(45deg) scale(1); }
+  50% { transform: rotate(60deg) scale(1.12); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+/* Eyes stay hidden, flick on for ~120 ms every 4.2 s. */
+@keyframes blink {
+  0%, 95%, 100% { opacity: 0; }
+  96%, 98.5% { opacity: 1; }
+}
+
+.anim-shape-a { animation: shape-a 7s ease-in-out infinite; }
+.anim-shape-b { animation: shape-b 9s ease-in-out infinite; }
+.anim-shape-c { animation: shape-c 6s ease-in-out infinite; }
+.anim-spin { animation: spin 80s linear infinite; transform-box: fill-box; transform-origin: center; }
+.anim-blink { animation: blink 4.2s steps(1, end) infinite; }
+/* The statement band's scroll cue: the arrow dips and returns. */
+@keyframes scroll-cue {
+  0%, 100% { transform: translateY(-2px); }
+  50% { transform: translateY(3px); }
+}
+.anim-scroll-cue { animation: scroll-cue 1.6s ease-in-out infinite; }
+/* At the footer the top nav slides up and away (HideOnFooter), and comes back on the
+   way up. Keyboard focus inside it brings it back too. The bar carries its own
+   backdrop, so nothing is left behind to snap off. Leaving eases in and out; coming
+   back decelerates, so it settles rather than drops in. */
+[data-nav-bar] {
+  transition:
+    transform 260ms var(--ease-smooth-out),
+    opacity 200ms var(--ease-smooth-out);
+}
+html[data-at-footer] [data-nav-bar]:not(:focus-within) {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 300ms cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 240ms cubic-bezier(0.65, 0, 0.35, 1) 40ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-at-footer] [data-nav-bar]:not(:focus-within) { transform: none; }
+}
+
+/* Recruiter view: ruled notebook paper (32px rows). */
+.notebook-paper {
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--paper-line) 31px, var(--paper-line) 32px);
+}
+
+/* Footer back-to-top badge: lettering turns slowly one way, the red square the other. */
+@keyframes footer-badge-spin { to { transform: rotate(360deg); } }
+@keyframes footer-badge-counter { to { transform: rotate(-360deg); } }
+.footer-badge-ring { animation: footer-badge-spin 18s linear infinite; transform-origin: 50% 50%; }
+.footer-badge-core { animation: footer-badge-counter 9s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .footer-badge-ring, .footer-badge-core { animation: none; }
+}
+html.lite :is(.footer-badge-ring, .footer-badge-core) { animation: none; }
+
+/* Light mode for weaker devices (lib/device.ts): the decorative loops stop; the
+   camera tour itself stays. */
+html.lite :is(.anim-spin, .anim-shape-a, .anim-shape-b, .anim-shape-c, .anim-marquee, .anim-scroll-cue) {
+  animation: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Hover details (transitions.dev motion tokens). Only for a real pointer
+   (mouse / trackpad): touch screens skip them. Keyboard focus gets the same
+   treatment. Transform, opacity and colour only; reduced motion keeps colour.
+   --------------------------------------------------------------------------- */
+:root {
+  --duration-quick: 150ms;
+  --duration-fast: 250ms;
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: ease-in-out;
+  --blur-small: 2px;
+}
+
+/* Pill buttons: the arrow slides a step in its direction. */
+.pill-link {
+  transition:
+    background-color var(--duration-quick) var(--ease-in-out),
+    border-color var(--duration-quick) var(--ease-in-out),
+    color var(--duration-quick) var(--ease-in-out),
+    opacity var(--duration-quick) var(--ease-in-out);
+}
+.pill-arrow {
+  display: inline-block;
+  transition: transform var(--duration-fast) var(--ease-smooth-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pill-link:hover .pill-arrow[data-arrow="next"] { transform: translateX(3px); }
+  .pill-link:hover .pill-arrow[data-arrow="external"] { transform: translate(2px, -2px); }
+}
+.pill-link:focus-visible .pill-arrow[data-arrow="next"] { transform: translateX(3px); }
+.pill-link:focus-visible .pill-arrow[data-arrow="external"] { transform: translate(2px, -2px); }
+
+/* Work rows: lift onto the card surface, and swap "Solo · Oct 2026" for the tech used.
+   Both lines share one grid cell, so the swap is a cross-blur in place (no layout shift). */
+.project-row {
+  transition:
+    transform var(--duration-fast) var(--ease-smooth-out),
+    background-color var(--duration-quick) var(--ease-in-out),
+    border-color var(--duration-quick) var(--ease-in-out);
+}
+/* (display: grid comes from the component's md:grid, so phones keep it hidden) */
+.project-swap > span {
+  grid-area: 1 / 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition:
+    opacity var(--duration-quick) var(--ease-in-out),
+    filter var(--duration-quick) var(--ease-in-out);
+}
+.project-swap > span + span {
+  opacity: 0;
+  filter: blur(var(--blur-small));
+}
+@media (hover: hover) and (pointer: fine) {
+  .project-row:hover {
+    transform: translateY(-2px);
+    background-color: var(--card);
+    border-color: var(--ink);
+  }
+  .project-row:hover .project-swap > span:first-child { opacity: 0; filter: blur(var(--blur-small)); }
+  .project-row:hover .project-swap > span + span { opacity: 1; filter: blur(0); }
+}
+.project-row:focus-within {
+  background-color: var(--card);
+  border-color: var(--ink);
+}
+.project-row:focus-within .project-swap > span:first-child { opacity: 0; filter: blur(var(--blur-small)); }
+.project-row:focus-within .project-swap > span + span { opacity: 1; filter: blur(0); }
+
+/* "+7 more" tile: a soft fill rises and the arrow slides. */
+.more-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--ink);
+  opacity: 0;
+  transition: opacity var(--duration-quick) var(--ease-in-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .more-tile:hover::before { opacity: 0.06; }
+  .more-tile:hover .pill-arrow { transform: translateX(3px); }
+}
+.more-tile:focus-visible::before { opacity: 0.06; }
+
+/* Stack "+n": the dashed pill fills on hover; the popover grows from it
+   (transitions.dev dropdown: open 250ms smooth-out from 0.97, close 150ms). */
+.stack-more {
+  transition:
+    background-color var(--duration-quick) var(--ease-in-out),
+    color var(--duration-quick) var(--ease-in-out),
+    border-style var(--duration-quick) var(--ease-in-out);
+}
+.stack-more[aria-expanded="true"],
+.stack-more:focus-visible {
+  background-color: var(--ink);
+  color: var(--bg);
+  border-style: solid;
+}
+@media (hover: hover) and (pointer: fine) {
+  .stack-more:hover {
+    background-color: var(--ink);
+    color: var(--bg);
+    border-style: solid;
+  }
+}
+.stack-pop {
+  transform-origin: top right;
+  animation: stack-pop-in var(--duration-fast) var(--ease-smooth-out) both;
+}
+.stack-pop[data-above] { transform-origin: bottom right; }
+.stack-pop[data-state="closing"] {
+  animation: stack-pop-out var(--duration-quick) var(--ease-smooth-out) both;
+}
+@keyframes stack-pop-in {
+  from { opacity: 0; transform: scale(0.97); }
+}
+@keyframes stack-pop-out {
+  to { opacity: 0; transform: scale(0.99); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-pop,
+  .stack-pop[data-state="closing"] { animation: none; }
+  .pill-arrow,
+  .project-row,
+  .project-swap > span { transition: none; }
+  .pill-link:hover .pill-arrow,
+  .pill-link:focus-visible .pill-arrow,
+  .more-tile:hover .pill-arrow { transform: none !important; }
+  .project-row:hover { transform: none; }
+}
+
+/* While the story camera moves (StoryController): give each moving piece its own
+   GPU layer, so zooming moves pixels instead of repainting the scene every frame. */
+html.story-moving :is([data-camera], [data-camera-depth], [data-story-panel], [data-story-shape], [data-story-door]) {
+  will-change: transform;
+}
+
+/* The statement band's running line: two copies side by side, each slides one width. */
+@keyframes marquee {
+  to { transform: translateX(-100%); }
+}
+.anim-marquee { animation: marquee 40s linear infinite; }
+
+/* ---------------------------------------------------------------------------
+   Loader visibility. The pre-paint script sets data-loader="skip" for
+   /#recruiter links; reduced motion skips it too.
+   Without JavaScript the loader still removes itself after 2.5 s.
+   --------------------------------------------------------------------------- */
+@keyframes loader-failsafe {
+  to { opacity: 0; visibility: hidden; }
+}
+.loader-overlay {
+  animation: loader-failsafe 0.4s ease 3s forwards;
+}
+html[data-loader="skip"] .loader-overlay {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-shape-a,
+  .anim-shape-b,
+  .anim-shape-c,
+  .anim-spin,
+  .anim-blink,
+  .anim-scroll-cue,
+  .anim-marquee {
+    animation: none;
+  }
+  .loader-overlay {
+    display: none;
+  }
+}
+
+/* Phone close-ups (CloseUp): as a card scrolls in, its image settles from 108% and
+   its label rises. JS sets data-reveal only when motion is allowed; without it, all is shown. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-closeup] [data-closeup-image],
+  [data-closeup] [data-closeup-label] {
+    transition:
+      transform 400ms var(--ease-out-quart),
+      opacity 400ms var(--ease-out-quart);
+  }
+  [data-closeup][data-reveal="wait"] [data-closeup-image] {
+    transform: scale(1.08);
+  }
+  [data-closeup][data-reveal="wait"] [data-closeup-label] {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+/* Theme toggle (ThemeToggle): the moon turns half a revolution, overshooting a touch. */
+@keyframes theme-turn {
+  from { rotate: var(--turn-from); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .theme-turn { animation: theme-turn 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+}
