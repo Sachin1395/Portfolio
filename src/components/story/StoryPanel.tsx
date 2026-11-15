@@ -84,7 +84,11 @@ export function StoryPanel({
       <p className="text-[0.8125rem] font-bold tracking-[0.08em] text-link uppercase">
         {index} — {eyebrow}
       </p>
-      <h2 id={headingId} className={cn("leading-[0.95] font-extrabold tracking-[-0.04em]", w.title)}>
+      <h2 id={headingId} className={cn(
+          // Tight letters, with extra room between words so they still read as separate words.
+          "leading-[0.95] font-extrabold tracking-[-0.04em] [word-spacing:0.1em]",
+          w.title,
+        )}>
         {titleLines.map((line) => (
           <span key={line} className="block">
             {line}

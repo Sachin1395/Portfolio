@@ -387,3 +387,11 @@ html[data-loader="skip"] .loader-overlay {
 @media (prefers-reduced-motion: no-preference) {
   .theme-turn { animation: theme-turn 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
 }
+
+/* Recruiter view: the phone index card fades and rises in (NotebookIndex). */
+@media (prefers-reduced-motion: no-preference) {
+  .notebook-index:not([hidden]) { animation: index-in 200ms var(--ease-smooth-out); }
+}
+@keyframes index-in {
+  from { opacity: 0; transform: translateY(8px); }
+}

@@ -30,7 +30,13 @@ import sharp from "sharp";
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const assetsDir = path.resolve(root, "..", "assets");
 const outDir = path.join(root, "public", "images", "avatar");
-const manifestPath = path.join(root, "src", "content", "generated", "avatar.json");
+const manifestPath = path.join(
+  root,
+  "src",
+  "content",
+  "generated",
+  "avatar.json",
+);
 
 const SOURCE = {
   standing: path.join(assetsDir, "A1-standing.png"),
@@ -73,7 +79,10 @@ const EYE_OUTER = { rx: 178, ry: 116 };
 const EYE_PATCH = {
   left: Math.min(...EYES.map((e) => e.cx)) - EYE_OUTER.rx,
   top: EYES[0].cy - EYE_OUTER.ry,
-  width: Math.max(...EYES.map((e) => e.cx)) - Math.min(...EYES.map((e) => e.cx)) + EYE_OUTER.rx * 2,
+  width:
+    Math.max(...EYES.map((e) => e.cx)) -
+    Math.min(...EYES.map((e) => e.cx)) +
+    EYE_OUTER.rx * 2,
   height: EYE_OUTER.ry * 2,
 };
 /** Skin under each eye (source px on "standing"), used to match the two renders' skin tone. */
@@ -84,23 +93,33 @@ const CHEEKS = [
 
 /**
  * Phone close-ups: one still crop per story stop, shown at the top of its card.
- * Each is designed for a CLOSE_FRAME-sized window (CSS px) over the figure drawn
- * `width` px wide, with the figure's top-left corner at (left, top). Numbers come
- * from the approved Mobile Body Map canvas. Exported at up to 3x for sharp phones.
+ * Each is framed for a CLOSE_FRAME-sized window (CSS px) over the figure drawn
+ * `width` px wide, with the figure's top-left corner at (left, top). The frame is
+ * wider than a phone card, so narrow cards show its middle and wider ones (up to
+ * 600px) still fill edge to edge. Exported at each of CLOSE_DENSITIES (never past
+ * the source resolution) for a srcset.
  */
-const CLOSE_FRAME = { width: 358, height: 240 };
+const CLOSE_FRAME = { width: 600, height: 240 };
 const CLOSE_UPS = [
-  { id: "about", width: 260, left: 49, top: 8 },
-  { id: "work", width: 770, left: -221, top: -779 },
-  { id: "stack", width: 900, left: -10, top: -740 },
-  { id: "experience", width: 420, left: -31, top: -976 },
+  { id: "about", width: 260, left: 170, top: 8 },
+  { id: "work", width: 770, left: -100, top: -779 },
+  // Closer in than the others, so the frame holds shoulder, collar and neck and
+  // stops just above the phone (the phone belongs to Work).
+  { id: "stack", width: 1250, left: -110, top: -985 },
+  { id: "experience", width: 420, left: 90, top: -976 },
 ];
-const CLOSE_MAX_DENSITY = 3;
+const CLOSE_DENSITIES = [2, 3];
 
 /** Bounding box of everything with alpha > 20, plus PAD, clamped to the image. */
 async function figureBox(file) {
-  const { data, info } = await sharp(file).extractChannel("alpha").raw().toBuffer({ resolveWithObject: true });
-  let minX = info.width, minY = info.height, maxX = 0, maxY = 0;
+  const { data, info } = await sharp(file)
+    .extractChannel("alpha")
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  let minX = info.width,
+    minY = info.height,
+    maxX = 0,
+    maxY = 0;
   for (let y = 0; y < info.height; y++) {
     for (let x = 0; x < info.width; x++) {
       if (data[y * info.width + x] > 20) {
@@ -127,7 +146,12 @@ async function cheekTone(image, dx = 0, dy = 0) {
   let n = 0;
   for (const c of CHEEKS) {
     const { data } = await sharp(image)
-      .extract({ left: c.left - dx, top: c.top - dy, width: c.width, height: c.height })
+      .extract({
+        left: c.left - dx,
+        top: c.top - dy,
+        width: c.width,
+        height: c.height,
+      })
       .removeAlpha()
       .raw()
       .toBuffer({ resolveWithObject: true });
@@ -144,9 +168,13 @@ async function cheekTone(image, dx = 0, dy = 0) {
 /** The closed eyes: two soft ovals from the aligned blink frame, toned to match "standing". */
 async function eyePatch() {
   const meta = await sharp(SOURCE.eyesClosed).metadata();
-  if (!meta.width || !meta.height) throw new Error("Could not read the eyes-closed size");
+  if (!meta.width || !meta.height)
+    throw new Error("Could not read the eyes-closed size");
   const scaled = await sharp(SOURCE.eyesClosed)
-    .resize(Math.round(meta.width * EYES_ALIGN.scale), Math.round(meta.height * EYES_ALIGN.scale))
+    .resize(
+      Math.round(meta.width * EYES_ALIGN.scale),
+      Math.round(meta.height * EYES_ALIGN.scale),
+    )
     .png()
     .toBuffer();
   const target = await cheekTone(SOURCE.standing);
@@ -155,7 +183,12 @@ async function eyePatch() {
 
   const { left, top, width, height } = EYE_PATCH;
   const raw = await sharp(scaled)
-    .extract({ left: left - EYES_ALIGN.dx, top: top - EYES_ALIGN.dy, width, height })
+    .extract({
+      left: left - EYES_ALIGN.dx,
+      top: top - EYES_ALIGN.dy,
+      width,
+      height,
+    })
     .ensureAlpha()
     .raw()
     .toBuffer();
@@ -166,8 +199,14 @@ async function eyePatch() {
       // Solid inside an eye's inner oval, fading to nothing at its outer oval (smoothstep).
       let alpha = 0;
       for (const e of EYES) {
-        const inner = Math.hypot((px - e.cx) / EYE_INNER.rx, (py - e.cy) / EYE_INNER.ry);
-        const outer = Math.hypot((px - e.cx) / EYE_OUTER.rx, (py - e.cy) / EYE_OUTER.ry);
+        const inner = Math.hypot(
+          (px - e.cx) / EYE_INNER.rx,
+          (py - e.cy) / EYE_INNER.ry,
+        );
+        const outer = Math.hypot(
+          (px - e.cx) / EYE_OUTER.rx,
+          (py - e.cy) / EYE_OUTER.ry,
+        );
         let k;
         if (inner <= 1) k = 1;
         else if (outer >= 1) k = 0;
@@ -178,11 +217,14 @@ async function eyePatch() {
         alpha = Math.max(alpha, k);
       }
       const i = (y * width + x) * 4;
-      for (let c = 0; c < 3; c++) raw[i + c] = Math.min(255, Math.round(raw[i + c] * tone[c]));
+      for (let c = 0; c < 3; c++)
+        raw[i + c] = Math.min(255, Math.round(raw[i + c] * tone[c]));
       raw[i + 3] = Math.round(raw[i + 3] * alpha);
     }
   }
-  return sharp(raw, { raw: { width, height, channels: 4 } }).png().toBuffer();
+  return sharp(raw, { raw: { width, height, channels: 4 } })
+    .png()
+    .toBuffer();
 }
 
 /** Writes `buffer` as `<base>-<hash>.<ext>` and returns its public URL. */
@@ -203,7 +245,10 @@ async function main() {
   const figure = () => sharp(SOURCE.standing).extract(crop);
 
   const src = await save(
-    await figure().resize({ height: OUTPUT_HEIGHT }).webp({ quality: 88, alphaQuality: 95, effort: 6 }).toBuffer(),
+    await figure()
+      .resize({ height: OUTPUT_HEIGHT })
+      .webp({ quality: 88, alphaQuality: 95, effort: 6 })
+      .toBuffer(),
     "avatar",
     "webp",
   );
@@ -213,8 +258,22 @@ async function main() {
     const h = Math.min(height, crop.height);
     hd.push({
       height,
-      avif: await save(await figure().resize({ height: h }).avif({ quality: 60, effort: 5 }).toBuffer(), `avatar-hd-${height}`, "avif"),
-      webp: await save(await figure().resize({ height: h }).webp({ quality: 82, alphaQuality: 90, effort: 6 }).toBuffer(), `avatar-hd-${height}`, "webp"),
+      avif: await save(
+        await figure()
+          .resize({ height: h })
+          .avif({ quality: 60, effort: 5 })
+          .toBuffer(),
+        `avatar-hd-${height}`,
+        "avif",
+      ),
+      webp: await save(
+        await figure()
+          .resize({ height: h })
+          .webp({ quality: 82, alphaQuality: 90, effort: 6 })
+          .toBuffer(),
+        `avatar-hd-${height}`,
+        "webp",
+      ),
     });
   }
 
@@ -222,7 +281,10 @@ async function main() {
   const hdScale = Math.min(Math.max(...HD_HEIGHTS), crop.height) / crop.height;
   const eyesSrc = await save(
     await sharp(await eyePatch())
-      .resize({ width: Math.round(EYE_PATCH.width * hdScale), height: Math.round(EYE_PATCH.height * hdScale) })
+      .resize({
+        width: Math.round(EYE_PATCH.width * hdScale),
+        height: Math.round(EYE_PATCH.height * hdScale),
+      })
       .webp({ quality: 88, alphaQuality: 95, effort: 6 })
       .toBuffer(),
     "eyes",
@@ -237,30 +299,56 @@ async function main() {
     .toBuffer({ resolveWithObject: true });
   const waveSrc = await save(waveBuffer, "wave", "webp");
 
-  // Phone close-ups. The figure is scaled so the frame is drawn at up to 3x, never
-  // past the source resolution, then padded with transparency where a frame runs off it.
+  // Phone close-ups. The figure is scaled so the frame is drawn at each density
+  // (never past the source resolution), then padded with transparency where a
+  // frame runs off it.
   const closeUps = {};
   for (const c of CLOSE_UPS) {
-    const k = Math.min(CLOSE_MAX_DENSITY, crop.width / c.width);
-    const figW = Math.round(c.width * k);
-    const scaled = await figure().resize({ width: figW }).png().toBuffer();
-    const pad = Math.round(CLOSE_FRAME.width * k);
-    const out = {
-      left: pad + Math.round(-c.left * k),
-      top: pad + Math.round(-c.top * k),
-      width: Math.round(CLOSE_FRAME.width * k),
-      height: Math.round(CLOSE_FRAME.height * k),
-    };
-    const framed = sharp(scaled)
-      .extend({ top: pad, bottom: pad, left: pad, right: pad, background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .png();
-    const region = await sharp(await framed.toBuffer()).extract(out).png().toBuffer();
-    closeUps[c.id] = {
-      avif: await save(await sharp(region).avif({ quality: 58, effort: 5 }).toBuffer(), `close-${c.id}`, "avif"),
-      webp: await save(await sharp(region).webp({ quality: 82, alphaQuality: 90, effort: 6 }).toBuffer(), `close-${c.id}`, "webp"),
-      width: out.width,
-      height: out.height,
-    };
+    const maxK = crop.width / c.width;
+    const densities = [
+      ...new Set(CLOSE_DENSITIES.map((d) => Math.min(d, maxK))),
+    ];
+    const sources = [];
+    for (const k of densities) {
+      const scaled = await figure()
+        .resize({ width: Math.round(c.width * k) })
+        .png()
+        .toBuffer();
+      const pad = Math.round(CLOSE_FRAME.width * k);
+      const out = {
+        left: pad + Math.round(-c.left * k),
+        top: pad + Math.round(-c.top * k),
+        width: Math.round(CLOSE_FRAME.width * k),
+        height: Math.round(CLOSE_FRAME.height * k),
+      };
+      const framed = await sharp(scaled)
+        .extend({
+          top: pad,
+          bottom: pad,
+          left: pad,
+          right: pad,
+          background: { r: 0, g: 0, b: 0, alpha: 0 },
+        })
+        .png()
+        .toBuffer();
+      const region = await sharp(framed).extract(out).png().toBuffer();
+      sources.push({
+        w: out.width,
+        avif: await save(
+          await sharp(region).avif({ quality: 58, effort: 5 }).toBuffer(),
+          `close-${c.id}-${out.width}`,
+          "avif",
+        ),
+        webp: await save(
+          await sharp(region)
+            .webp({ quality: 82, alphaQuality: 90, effort: 6 })
+            .toBuffer(),
+          `close-${c.id}-${out.width}`,
+          "webp",
+        ),
+      });
+    }
+    closeUps[c.id] = { frame: CLOSE_FRAME, sources };
   }
 
   const pct = (v, total) => Number(((v / total) * 100).toFixed(3));
@@ -280,7 +368,18 @@ async function main() {
     closeUps,
   };
   await writeFile(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
-  console.log("avatar", manifest.width, "x", OUTPUT_HEIGHT, "crop", crop, "eyes", manifest.eyes, "wave", manifest.wave);
+  console.log(
+    "avatar",
+    manifest.width,
+    "x",
+    OUTPUT_HEIGHT,
+    "crop",
+    crop,
+    "eyes",
+    manifest.eyes,
+    "wave",
+    manifest.wave,
+  );
 }
 
 main().catch((err) => {

@@ -28,28 +28,71 @@
   },
   "closeUps": {
     "about": {
-      "avif": "/images/avatar/close-about-b65603f3.avif",
-      "webp": "/images/avatar/close-about-4cec8886.webp",
-      "width": 1074,
-      "height": 720
+      "frame": {
+        "width": 600,
+        "height": 240
+      },
+      "sources": [
+        {
+          "w": 1200,
+          "avif": "/images/avatar/close-about-1200-3de3692f.avif",
+          "webp": "/images/avatar/close-about-1200-6969f239.webp"
+        },
+        {
+          "w": 1800,
+          "avif": "/images/avatar/close-about-1800-7a974136.avif",
+          "webp": "/images/avatar/close-about-1800-1a576b32.webp"
+        }
+      ]
     },
     "work": {
-      "avif": "/images/avatar/close-work-38d769a7.avif",
-      "webp": "/images/avatar/close-work-a89d9f0f.webp",
-      "width": 968,
-      "height": 649
+      "frame": {
+        "width": 600,
+        "height": 240
+      },
+      "sources": [
+        {
+          "w": 1200,
+          "avif": "/images/avatar/close-work-1200-f03863e8.avif",
+          "webp": "/images/avatar/close-work-1200-7ce0e865.webp"
+        },
+        {
+          "w": 1623,
+          "avif": "/images/avatar/close-work-1623-e6d77e58.avif",
+          "webp": "/images/avatar/close-work-1623-86a645d5.webp"
+        }
+      ]
     },
     "stack": {
-      "avif": "/images/avatar/close-stack-708c2982.avif",
-      "webp": "/images/avatar/close-stack-52a81ef5.webp",
-      "width": 829,
-      "height": 555
+      "frame": {
+        "width": 600,
+        "height": 240
+      },
+      "sources": [
+        {
+          "w": 1000,
+          "avif": "/images/avatar/close-stack-1000-b3a1c56c.avif",
+          "webp": "/images/avatar/close-stack-1000-a71dcbb8.webp"
+        }
+      ]
     },
     "experience": {
-      "avif": "/images/avatar/close-experience-a11abefe.avif",
-      "webp": "/images/avatar/close-experience-fd02def9.webp",
-      "width": 1074,
-      "height": 720
+      "frame": {
+        "width": 600,
+        "height": 240
+      },
+      "sources": [
+        {
+          "w": 1200,
+          "avif": "/images/avatar/close-experience-1200-b7d72e29.avif",
+          "webp": "/images/avatar/close-experience-1200-26fcfbec.webp"
+        },
+        {
+          "w": 1800,
+          "avif": "/images/avatar/close-experience-1800-d9d0abd8.avif",
+          "webp": "/images/avatar/close-experience-1800-b58e39ad.webp"
+        }
+      ]
     }
   }
 }

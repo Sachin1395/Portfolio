@@ -59,7 +59,7 @@ export function ContactSection() {
           <h2
             id="contact-title"
             data-contact-reveal
-            className="text-[clamp(40px,min(6.6vw,12svh),96px)] leading-[0.9] font-extrabold tracking-[-0.045em]"
+            className="text-[clamp(40px,min(6.6vw,12svh),96px)] leading-[0.9] font-extrabold tracking-[-0.045em] [word-spacing:0.1em]"
           >
             {contact.titleLines.map((line) => (
               <span key={line} className="block">

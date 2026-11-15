@@ -4,8 +4,12 @@ import { useEffect, useRef } from "react";
 import { closeUps, type CloseUpId } from "@/content/assets";
 import { prefersReducedMotion } from "@/lib/motion";
 
-/** The crops are framed for this window (CSS px); narrower cards trim the sides. */
-const FRAME = { width: 358, height: 240 };
+/**
+ * The crops are framed for a 600×240 window (CSS px): narrower cards show its
+ * middle, wider ones (up to 767px) cover with a slight zoom, so the picture
+ * always reaches both edges of the card.
+ */
+const SIZES = "(min-width: 600px) 100vw, 600px";
 
 /**
  * Phones only: a still close-up of the stop's detail at the top of its card,
@@ -42,34 +46,32 @@ export function CloseUp({ id, index }: { id: CloseUpId; index: string }) {
       data-closeup
       className="relative -mx-6 -mt-6 mb-1 h-60 overflow-hidden rounded-t-[19px] border-b border-border bg-[radial-gradient(closest-side,var(--card),var(--bg))] md:hidden"
     >
-      <div
-        className="absolute inset-y-0 left-1/2 -ml-[179px]"
-        style={{ width: FRAME.width }}
-      >
+      <div className="absolute inset-y-0 left-1/2 w-[max(600px,100%)] -translate-x-1/2">
         <svg
           aria-hidden="true"
-          viewBox={`0 0 ${FRAME.width} ${FRAME.height}`}
+          viewBox="0 0 600 240"
+          preserveAspectRatio="xMidYMid slice"
           className="absolute inset-0 size-full text-line"
           fill="none"
           stroke="currentColor"
         >
           {shot.floor ? (
             <>
-              <ellipse cx="179" cy="196" rx="150" ry="32" />
+              <ellipse cx="300" cy="196" rx="190" ry="34" />
               <ellipse
-                cx="179"
+                cx="300"
                 cy="196"
-                rx="110"
-                ry="22"
+                rx="140"
+                ry="24"
                 className="text-ring"
                 strokeDasharray="2 6"
               />
             </>
           ) : (
             <>
-              <circle cx="179" cy="120" r="110" />
+              <circle cx="300" cy="120" r="110" />
               <circle
-                cx="179"
+                cx="300"
                 cy="120"
                 r="78"
                 className="text-ring"
@@ -80,18 +82,30 @@ export function CloseUp({ id, index }: { id: CloseUpId; index: string }) {
         </svg>
         <picture>
           {/* Tablet and up hide the close-up; an empty source there stops the download. */}
-          <source media="(min-width: 768px)" srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
-          <source srcSet={shot.avif} type="image/avif" />
+          <source
+            media="(min-width: 768px)"
+            srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          />
+          <source
+            type="image/avif"
+            sizes={SIZES}
+            srcSet={shot.sources.map((s) => `${s.avif} ${s.w}w`).join(", ")}
+          />
+          <source
+            type="image/webp"
+            sizes={SIZES}
+            srcSet={shot.sources.map((s) => `${s.webp} ${s.w}w`).join(", ")}
+          />
           {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized crops; next/image would re-encode them. */}
           <img
             data-closeup-image
-            src={shot.webp}
+            src={shot.sources[0]!.webp}
             alt={shot.alt}
-            width={shot.width}
-            height={shot.height}
+            width={shot.frame.width}
+            height={shot.frame.height}
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 size-full"
+            className="absolute inset-0 size-full object-cover"
           />
         </picture>
       </div>
